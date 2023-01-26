@@ -22,16 +22,15 @@ style2list_len = [512, 512, 512, 512, 512, 512, 512, 512, 512, 512,
 rgb_layer_idx = [1,4,7,10,13,16,19,22,25]
 
 google_drive_paths = {
-    "church.pt": "https://drive.google.com/uc?id=1ORsZHZEeFNEX9HtqRutt1jMgrf5Gpcat",
-    "face.pt": "https://drive.google.com/uc?id=1dOBo4xWUwM7-BwHWZgp-kV1upaD6tHAh",
-    "landscape.pt": "https://drive.google.com/uc?id=1rN5EhwiY95BBNPvOezhX4SZ_tEOR0qe2",
-    "disney.pt": "https://drive.google.com/uc?id=1n2uQ5s2XdUBGIcZA9Uabz1mkjVvKWFeG",
+    "church.pt": "/content/drive/MyDrive/model/church.pt",
+    "face.pt": "/content/drive/MyDrive/model/face.pt",
+    "landscape.pt": "/content/drive/MyDrive/model/landscape.pt",
+    "disney.pt": "/content/drive/MyDrive/model/disney.pt",
 }
 
 @torch.no_grad()
 def load_model(generator, model_file_path):
-    ensure_checkpoint_exists(model_file_path)
-    ckpt = torch.load(model_file_path, map_location=lambda storage, loc: storage)
+    ckpt = torch.load(google_drive_paths[model_weights_filename], map_location=lambda storage, loc: storage)
     generator.load_state_dict(ckpt["g_ema"], strict=False)
     return generator.mean_latent(50000)
 
