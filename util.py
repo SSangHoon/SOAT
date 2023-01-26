@@ -30,7 +30,7 @@ google_drive_paths = {
 
 @torch.no_grad()
 def load_model(generator, model_file_path):
-    ckpt = torch.load(google_drive_paths[model_weights_filename], map_location=lambda storage, loc: storage)
+    ckpt = torch.load(google_drive_paths[model_file_path], map_location=lambda storage, loc: storage)
     generator.load_state_dict(ckpt["g_ema"], strict=False)
     return generator.mean_latent(50000)
 
